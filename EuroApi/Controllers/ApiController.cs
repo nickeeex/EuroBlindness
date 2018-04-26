@@ -30,7 +30,7 @@ namespace WebAPIApplication.Controllers
 
         [HttpGet]
         [Route("private-scoped")]
-        [Authorize("read:messages")]
+        [Authorize("admin")]
         public IActionResult Scoped()
         {
             return Json(new

@@ -24,6 +24,8 @@ namespace WebAPIApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors();
             // Add framework services.
             services.AddMvc();
 
@@ -41,7 +43,7 @@ namespace WebAPIApplication
             
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+                options.AddPolicy("admin", policy => policy.Requirements.Add(new HasScopeRequirement("admin", domain)));
             });
 
             // register the scope authorization handler
@@ -59,7 +61,11 @@ namespace WebAPIApplication
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseCors(builder =>
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .AllowAnyOrigin()
+                );
             app.UseStaticFiles();
 
             app.UseAuthentication();
