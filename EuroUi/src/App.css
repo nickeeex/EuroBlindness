@@ -1,3 +1,38 @@
 .btn-margin {
   margin: 7px 3px;
 }
+
+.logo {
+  max-width: 300px;
+  display: block;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+
+}
+
+.login-btn {
+  margin: 20px auto;
+  display: block;
+  background-color: darkgrey;
+  border: 2px solid #222222;
+}
+
+.login-btn::before {
+  content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+    background-image : url(/images/g-logo.png);
+    background-size: 16px;
+}
