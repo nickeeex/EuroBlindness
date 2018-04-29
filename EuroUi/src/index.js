@@ -1,11 +1,10 @@
 import ReactDOM from 'react-dom';
+import React from 'react';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { makeMainRoutes } from './routes';
-
-const routes = makeMainRoutes();
+import MainRoutes from './routes';
 
 ReactDOM.render(
-  routes,
+  React.createElement(MainRoutes, {}, null),
   document.getElementById('root')
 );

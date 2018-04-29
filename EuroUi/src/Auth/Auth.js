@@ -1,6 +1,7 @@
 import history from '../history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
+import jwt_decode from 'jwt-decode';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -29,7 +30,9 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/home');
+        var token = jwt_decode(authResult.accessToken);
+        token.roomId = "1234";
+        return token.roomId;
       } else if (err) {
         history.replace('/home');
         console.log(err);
@@ -57,6 +60,18 @@ export default class Auth {
       throw new Error('No access token found');
     }
     return accessToken;
+  }
+
+  getToken() {
+    const token = localStorage.getItem('access_token');
+    if(!token) {
+      throw new Error("No token found");
+    }
+    
+    var token_data = jwt_decode(token);
+    //token_data.roomId = "1234";
+
+    return token_data;
   }
 
   logout() {

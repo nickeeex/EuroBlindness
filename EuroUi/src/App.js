@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import { Button, Navbar, Nav, NavItem } from 'react-bootstrap';
 import './App.css';
 
 class App extends Component {
@@ -7,58 +7,73 @@ class App extends Component {
     this.props.history.replace(`/${route}`)
   }
 
-  login = () => {
-    this.props.auth.login();
-  }
-
   logout = () => {
     this.props.auth.logout();
+    this.props.history.replace(`/`);
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
-
+    const { isAuthenticated, getToken } = this.props.auth;
+    if(!isAuthenticated()) this.goTo('login');
     return (
       <div>
-        <Navbar fluid>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">EuroBlindness</a>
-            </Navbar.Brand>
-            <Button
-              bsStyle="primary"
-              className="btn-margin"
-              onClick={this.goTo.bind(this, 'home')}
-            >
-              Home
-            </Button>
-            {
-              !isAuthenticated() && (
-                <Button
-                  id="qsLoginBtn"
-                  bsStyle="primary"
-                  className="btn-margin"
-                  onClick={this.login}
-                >
-                  Log In
-                  </Button>
-              )
-            }
-            {
-              isAuthenticated() && (
-                <Button
-                  id="qsLogoutBtn"
-                  bsStyle="primary"
-                  className="btn-margin"
-                  onClick={this.logout}
-                >
-                  Log Out
-                  </Button>
-              )
-            }
-          </Navbar.Header>
-        </Navbar>
-      </div>
+        <Navbar collapseOnSelect>
+            <Navbar.Header>
+              <Navbar.Brand>
+                <a href="#">EuroBlindness</a>
+              </Navbar.Brand>
+              {
+                !isAuthenticated() && (
+                  <Button
+                    id="qsLoginBtn"
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.login}
+                  >
+                    Log In
+                    </Button>
+                )
+              }
+              {
+                isAuthenticated() && (
+                  <Button
+                    id="qsLogoutBtn"
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.logout}
+                  >
+                    Log Out
+                    </Button>
+                )
+              }
+              <Navbar.Toggle />
+            </Navbar.Header>
+            <Navbar.Collapse>
+            <Nav>
+              {getToken().roomId && (
+                [
+                <NavItem key="vote" eventKey={1} href="/vote">
+                  Vote
+                </NavItem>,
+                <NavItem key="users" eventKey={2} href="/users">
+                  Users
+                </NavItem>,
+                <NavItem key="dashboard" eventKey={3} href="/dashboard">
+                  Dashboard
+                </NavItem>
+                ]  
+              )}
+              
+              <NavItem eventKey={4} href="#">
+                Link
+              </NavItem>
+              <NavItem eventKey={5} href="#">
+                Link
+              </NavItem>
+            </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
     );
   }
 }
