@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="144px" height="150px" viewBox="0 0 144 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Luxembourg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="49.6875 27.6230469 60.0712891 11.9335938 79.6757812 0.145507812 103.294922 2.95117188 109.764648 19.4384766 107.070312 52.9150391 90.2744141 81.7089844 63.6386719 103.954102 53.2910156 116.90918 50.7324219 120.060547 26.7460937 102.104492 5.34765625 75.4648438 0.689453125 48.0761719 9.70800781 23.2841797 23.1513672 13.2939453 38.7128906 15.0292969 48.9462891 22.2802734"></polygon>
+        <path d="M7.10146686,53.5862208 C7.41705777,25.2922056 22.1416563,16.4368041 30.1604441,16.4368041 C41.3589593,16.4368041 45.9836563,24.9855466 46.7398835,28.7706526 C47.4951184,32.5537738 51.7337623,35.5786829 53.0953684,29.375039 C54.4579669,23.171395 67.6333911,4.25479655 83.8238002,4.25479655 C98.6526032,4.25479655 103.788399,19.5460693 103.343793,32.5537738 C102.13105,67.9614859 56.5152623,96.2217587 50.5110956,114.066539 C45.1649063,103.258047 6.72434564,87.6353041 7.10146686,53.5862208 Z M89.1203684,-4.5202186 C75.8040199,-4.5202186 60.0552396,5.31470564 50.5230047,21.6589405 C47.9506411,15.7560011 38.7865956,9.32409958 27.8927547,9.32409958 C19.1147623,9.32409958 -5.52514678,20.2953496 -5.52514678,55.7050466 C-5.52514678,101.404198 40.7099138,110.790547 50.0565653,124.99313 C50.6986638,125.970668 52.7678684,126.708039 53.5568456,124.373857 C61.0149138,102.363872 118.845459,77.4957056 118.845459,32.7046223 C118.845459,7.58537231 102.436717,-4.5202186 89.1203684,-4.5202186 L89.1203684,-4.5202186 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.266191123 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Luxembourg" transform="translate(15.402344, 14.839844)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Path-3"></g>
+            <g id="luxembourg-flag" mask="url(#mask-2)">
+                <g transform="translate(67.299812, 59.366437) rotate(-7.000000) translate(-67.299812, -59.366437) translate(-21.200188, 5.866437)" id="Countryflags.com">
+                    <g transform="translate(-0.000000, -0.000000)">
+                        <g id="Group" transform="translate(-0.000000, -0.000000)" fill-rule="nonzero">
+                            <rect id="_x33_" fill="#00A1DE" x="0.294217171" y="53.2533079" width="176.530302" height="52.9590907"></rect>
+                            <rect id="_x32_" fill="#ED2939" x="0.294217171" y="0.294217171" width="176.530302" height="52.9590907"></rect>
+                            <rect id="_x31_" fill="#FFFFFF" x="0.294217171" y="35.6002776" width="176.530302" height="35.3060605"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <g id="Fill-39">
+                <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-3"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="155px" height="161px" viewBox="0 0 155 161" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Serbia_and_Montenegro</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="53.793905 29.9059433 65.0358584 12.9198412 86.2605566 0.157533252 111.831692 3.19507038 118.836107 21.0449622 115.919099 57.2881828 97.7351094 88.461793 68.8980662 112.54535 57.6952318 126.571095 54.925184 129.982906 28.9565147 110.54288 5.78961131 81.7016077 0.746432722 52.0494092 10.5103225 25.2084921 25.0647033 14.3926185 41.9123031 16.2713875 52.9914369 24.1216183"></polygon>
+        <path d="M7.68836494,58.0148341 C8.03003775,27.3824706 23.9715452,17.7952177 32.6530428,17.7952177 C44.7770551,17.7952177 49.7839584,27.0504678 50.6026838,31.1483925 C51.4203348,35.2441684 56.0092799,38.5190699 57.4834153,31.8027281 C58.9586253,25.0863864 73.2229276,4.60643263 90.751387,4.60643263 C106.805711,4.60643263 112.365952,21.1614469 111.884602,35.2441684 C110.571633,73.5781377 61.1859451,104.17397 54.6855664,123.493526 C48.8975431,111.791769 7.28007669,94.8778912 7.68836494,58.0148341 Z M96.4856881,-4.89379039 C82.0688149,-4.89379039 65.0184825,5.75393751 54.6984597,23.4489356 C51.913504,17.0581499 41.9920994,10.0946863 30.1979411,10.0946863 C20.6944947,10.0946863 -5.98177048,21.9726512 -5.98177048,60.3087694 C-5.98177048,109.78471 44.0743695,119.94679 54.1934716,135.323141 C54.888636,136.381467 57.1288492,137.179778 57.9830312,134.652688 C66.0574687,110.823696 128.667398,83.9003094 128.667398,35.4074837 C128.667398,8.21226258 110.902561,-4.89379039 96.4856881,-4.89379039 L96.4856881,-4.89379039 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-5">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.266191123 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Serbia_and_Montenegro" transform="translate(16.046875, 15.044922)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Path-3"></g>
+            <g id="Group" mask="url(#mask-2)" fill-rule="nonzero">
+                <g transform="translate(31.853356, 69.640526) rotate(-7.000000) translate(-31.853356, -69.640526) translate(-83.448297, 11.719038)" id="Rectangle-path">
+                    <rect fill="#FFFFFF" x="2.00008972e-13" y="1.53853055e-14" width="229.997564" height="114.998782"></rect>
+                    <rect fill="#DE0000" x="-1.07697139e-13" y="76.6658545" width="229.997564" height="38.3329273"></rect>
+                    <rect fill="#00338D" x="9.23118331e-14" y="3.84632638e-14" width="229.997564" height="38.3329273"></rect>
+                </g>
+            </g>
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <g id="Fill-39">
+                <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-3"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>
