@@ -2,9 +2,9 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import MainRoutes from './routes';
+import App from './App';
 
 ReactDOM.render(
-  React.createElement(MainRoutes, {}, null),
+  React.createElement(App, {}, null),
   document.getElementById('root')
 );

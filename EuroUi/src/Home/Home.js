@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import { API_URL } from './../constants';
 import Select from './../Select/Select';
 import Vote from './../Vote/Vote';
@@ -19,7 +19,7 @@ class Home extends Component {
   callPrivateApi = () => {
     const { getAccessToken } = this.props.auth;
     const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
-    axios.get(`${API_URL}/private`, { headers })
+    axios.post(`${API_URL}/room/`,{}, { headers })
       .then(response => this.setState({ message: response.data.message }))
       .catch(error => this.setState({ message: error.message }));
   }
@@ -50,3 +50,4 @@ class Home extends Component {
 }
 
 export default Home;
+*/

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Button, FormControl } from 'react-bootstrap';
 
 
-class Select extends Component {
-  
+class RoomChoise extends Component {
+
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -22,46 +22,42 @@ class Select extends Component {
   joinRoom = () => {
     console.log(this.state.value);
     this.renewToken();
-    this.props.onRoomInfo({bla: "bla"})
+    history.replace('/vote');
   }
 
-  createRoom = () => {
-    console.log(this.state.value);
-    this.renewToken();
-    this.props.onRoomInfo({bla: "bla"})
-  }
-
-    render() {
-      return (
+  render() {
+    return (
+      <div className="container">
         <div className="center">
-            <form>
-              <FormControl
+          <form>
+            <FormControl
               type="text"
               defaultValue=""
               placeholder="Enter room id to join or room name to create"
               onBlur={this.handleChange}
             />
-            
+
             <Button
-                id="joinRoomBtn"
-                bsStyle="primary"
-                className="btn-margin"
-                onClick={this.joinRoom}
+              id="joinRoomBtn"
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.joinRoom}
             >
-                Join Room
+              Join Room
             </Button>
             <Button
-                id="createRoomBtn"
-                bsStyle="primary"
-                className="btn-margin"
-                onClick={this.createRoom}
+              id="createRoomBtn"
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.joinRoom}
             >
-                Create Room
+              Create Room
             </Button>
-            </form>
+          </form>
         </div>
-      );
-    }
+      </div>
+    );
   }
-  
-  export default Select;
+}
+
+export default RoomChoise;
