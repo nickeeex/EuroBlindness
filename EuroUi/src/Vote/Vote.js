@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { PanelGroup, Panel, FormGroup, FormControl, Form, ControlLabel } from 'react-bootstrap';
 import myData from './data.json';
+import axios from 'axios';
+import { API_URL } from './../constants';
 
 class Vote extends Component {
   
@@ -14,6 +16,22 @@ class Vote extends Component {
             value: myData,
             activeKey: '1'
         };
+    }
+    
+    getRoomData = () => {
+        const { getAccessToken } = this.props.auth;
+        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
+        axios.get(`${API_URL}/vote/`,{ headers })
+    }
+
+    vote = () => {
+        const { getAccessToken } = this.props.auth;
+        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
+        axios.post(`${API_URL}/vote/`,{  
+            categoryId: 25,
+            contestantId: 1,
+            points: 5
+        }, { headers })
     }
 
     getValidationState(countryId, categoryId) {

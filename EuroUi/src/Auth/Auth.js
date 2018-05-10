@@ -27,14 +27,11 @@ export default class Auth {
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
+    return this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        var token = jwt_decode(authResult.accessToken);
-        token.roomId = "1234";
-        return token.roomId;
+        history.replace('/vote');
       } else if (err) {
-        history.replace('/home');
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
@@ -51,7 +48,7 @@ export default class Auth {
     // Schedule renewal
     this.scheduleRenewal();
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/vote');
   }
 
   getAccessToken() {
@@ -72,6 +69,15 @@ export default class Auth {
     //token_data.roomId = "1234";
 
     return token_data;
+  }
+
+  getRoomId() {
+    const roomIdentifier = "https://euroblindness/roomId"
+    const token = localStorage.getItem('access_token');
+
+    var token_data = jwt_decode(token);
+    
+    return token_data[roomIdentifier];
   }
 
   logout() {
