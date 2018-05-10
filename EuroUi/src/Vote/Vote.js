@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import { PanelGroup, Panel, FormGroup, FormControl, Form, ControlLabel } from 'react-bootstrap';
-import myData from './data.json';
 import axios from 'axios';
 import { API_URL } from './../constants';
+import Callback from './../Callback/Callback';
 
 class Vote extends Component {
   
     constructor(props, context) {
         super(props, context);
-        //FETCH DATA - now using data from data.json
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleActiveKey = this.handleActiveKey.bind(this);
 
         this.state = {
-            value: myData,
-            activeKey: '1'
+            roomData: null,
+            activeKey: ''
         };
+    }
+
+    componentWillMount() {
+        const { getAccessToken } = this.props.auth;
+        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
+        return axios.get(`${API_URL}/vote/`,{ headers }).then((result) => {
+            this.setState({roomData: result.data})
+        });
     }
     
     getRoomData = () => {
-        const { getAccessToken } = this.props.auth;
-        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
-        axios.get(`${API_URL}/vote/`,{ headers })
+       
     }
 
     vote = () => {
@@ -35,8 +41,8 @@ class Vote extends Component {
     }
 
     getValidationState(countryId, categoryId) {
-        const votes = this.state.value.contestants.find((contestant) => contestant.contestantId === countryId).votes;
-        var notCorrectPoints = Object.entries(votes).find((vote) => vote.key === categoryId && (Number.parseInt(vote.value, 10) < 0 || Number.parseInt(vote.value, 10) > 10));
+        const votes = this.state.roomData.contenstants.find((contestant) => contestant.contestantId === countryId).votes;
+        var notCorrectPoints = Object.entries(votes).find((vote) => vote.key === categoryId && (Number.parseInt(vote.value, 10) < 0 || Number.parseInt(vote.value, 10) > 12));
 
         if(notCorrectPoints !== undefined) {
             return 'error';
@@ -50,22 +56,18 @@ class Vote extends Component {
             console.log(e.target.value);
             let point =e.target.value;
             //point = (point < 0 ? 0 : point > 12 ? 12 : point);
-             
+            
             console.log(point);
             changedVote.points = point;
             
             this.sendVote(changedVote);
             
+            const stateCopy = Object.assign({}, this.state.roomData);
+
+            stateCopy.contenstants[changedVote.index].votes[changedVote.category] = point;
+
             //WAIT FOR DATA!!
-            let value = this.state.value;
-            let contestants = value.contestants.map((contestant) => {
-                if(contestant.contestantId === changedVote.country) {
-                    contestant.votes[changedVote.category] = point;
-                }  
-                return contestant;
-            });
-            value.contestants = contestants; 
-            this.setState({ value: value });
+            this.setState({ roomData: stateCopy});
             
             
         }
@@ -82,7 +84,7 @@ class Vote extends Component {
         if(this.state.activeKey === activeKey){
             activeKey = -1;
         }
-        this.setState({activeKey})
+        this.setState({activeKey: activeKey})
     }
 
     averageScore = (votes) => {
@@ -92,9 +94,10 @@ class Vote extends Component {
     }
 
     render() {
-        var countryPanels = [].concat(this.state.value.contestants).sort((a,b) => a.startingOrder > b.startingOrder).map((contestant, i) => {
-            return  <Panel key={i} eventKey={i} >
-                        <div className="panelHeading" onClick={() => this.handleActiveKey(i)}>
+        if(!this.state.roomData) return <Callback />; 
+        var countryPanels = this.state.roomData.contenstants.map((contestant, i) => {
+            return  <Panel key={contestant.contestantName} eventKey={contestant.contestantName} >
+                        <div className="panelHeading" onClick={() => this.handleActiveKey(contestant.contestantName)}>
                         <Panel.Heading>
                             <div className="flag"><img src={"../images/flags/round/png/"+contestant.countryName.toLowerCase().replace(" ", "-")+".png"} alt="flag"/></div>
                             <div className="contryArtistContainer">
@@ -107,10 +110,10 @@ class Vote extends Component {
                         <Panel.Body collapsible>
                             <Form>
                                 
-                                    {[].concat(this.state.value.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, i) => {
-                                        return  <FormGroup key={i} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
+                                    {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
+                                        return  <FormGroup key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                     <ControlLabel>{category.categoryName}</ControlLabel>
-                                                    <FormControl type="number" min="1" max="10" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({ "country": contestant.contestantId, "category": category.categoryId })} />
+                                                    <FormControl type="number" min="0" max="12" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({"index": i, "country": contestant.contestantId, "category": category.categoryId })} />
                                                 </FormGroup>  
                                     })}
                                 
