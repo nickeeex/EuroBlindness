@@ -4,6 +4,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
 
+console.log(process.env)
 ReactDOM.render(
   React.createElement(App, {}, null),
   document.getElementById('root')

@@ -96,7 +96,7 @@ namespace WebAPIApplication.Controllers
             return Ok(new
             {
                 categories,
-                Contenstants = result
+                Contestants = result
             });
                
         }

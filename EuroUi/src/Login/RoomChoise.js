@@ -22,7 +22,6 @@ class RoomChoise extends Component {
   joinRoom = () => {
     console.log(this.state.value);
     this.renewToken();
-    history.replace('/vote');
   }
 
   render() {
