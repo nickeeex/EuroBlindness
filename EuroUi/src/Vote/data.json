@@ -1,0 +1,58 @@
+{
+    "categories": [
+        {
+            "categoryId": 25,
+            "categoryName": "Song"
+        },
+        {
+            "categoryId": 26,
+            "categoryName": "Show"
+        },
+        {
+            "categoryId": 27,
+            "categoryName": "Overall"
+        },
+        {
+            "categoryId": 28,
+            "categoryName": "Panisin"
+        }
+    ],
+    "contestants": [
+        {
+            "contestantId": 1,
+            "countryName": "Germany",
+            "contestantName": "Michael Schulte",
+            "entryName": "You Let Me Walk Alone",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 3,
+            "votes": {
+                    "27": 8,
+                    "26": 9
+                }
+        },
+        {
+            "contestantId": 2,
+            "countryName": "Sweden",
+            "contestantName": "Svenne Banan",
+            "entryName": "Bög sång",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 1,
+            "votes": {
+                    "25": 4,
+                    "28": 9
+                }
+        },
+        {
+            "contestantId": 3,
+            "countryName": "Finland",
+            "contestantName": "Saara Aalto",
+            "entryName": "Rick ROll",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 2,
+            "votes": {
+                    "25": 4,
+                    "27": 3
+                }
+        }
+    ]
+}

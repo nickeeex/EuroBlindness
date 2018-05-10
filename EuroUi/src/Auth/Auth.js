@@ -30,14 +30,7 @@ export default class Auth {
     return this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        var token = jwt_decode(authResult.accessToken);
-        token.roomId = "1234";
-        if(token.roomId != null) {
-          history.replace('/vote');
-        } else {
-          history.replace('/selectroom');
-        }
-        return "cool";
+        history.replace('/vote');
       } else if (err) {
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
@@ -55,7 +48,7 @@ export default class Auth {
     // Schedule renewal
     this.scheduleRenewal();
     // navigate to the home route
-    history.replace('/selectroom');
+    history.replace('/vote');
   }
 
   getAccessToken() {

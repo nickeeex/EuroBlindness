@@ -20,17 +20,12 @@ class App extends Component {
 
   handleAuthentication = ({ location }) => {
     if (/access_token|id_token|error/.test(location.hash)) {
-      auth.handleAuthentication().then((x) => {
-        console.log(x);
-      })
+      auth.handleAuthentication();
     }
   }
 
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      roomData: null
-    };
   }
 
   render() {
@@ -49,9 +44,10 @@ class App extends Component {
           }} />
 
           <Route key="vote" path="/vote" render={(props) => {
-            return <Vote roomId={auth.getRoomId()} auth={auth} {...props} />
+            return <Vote auth={auth} {...props} />
           }} />
 
+          {/*
           <Route key="selectroom" path="/selectroom" render={(props) =>
             auth.getRoomId() != null ?
               <Redirect to={{
@@ -60,7 +56,7 @@ class App extends Component {
               }} /> :
               <RoomChoise auth={auth} />}
           />
-
+            */}
           <Route path="/dashboard" render={(props) => <Dashboard auth={auth} {...props} />} />
         </div>
       </Router>

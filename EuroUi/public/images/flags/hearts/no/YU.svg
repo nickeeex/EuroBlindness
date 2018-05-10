@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="155px" height="161px" viewBox="0 0 155 161" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Yugoslavia</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="59.793905 34.9059433 71.0358584 17.9198412 92.2605566 5.15753325 117.831692 8.19507038 124.836107 26.0449622 121.919099 62.2881828 103.735109 93.461793 74.8980662 117.54535 63.6952318 131.571095 60.925184 134.982906 34.9565147 115.54288 11.7896113 86.7016077 6.74643272 57.0494092 16.5103225 30.2084921 31.0647033 19.3926185 47.9123031 21.2713875 58.9914369 29.1216183"></polygon>
+        <path d="M13.6883649,63.0148341 C14.0300377,32.3824706 29.9715452,22.7952177 38.6530428,22.7952177 C50.7770551,22.7952177 55.7839584,32.0504678 56.6026838,36.1483925 C57.4203348,40.2441684 62.0092799,43.5190699 63.4834153,36.8027281 C64.9586253,30.0863864 79.2229276,9.60643263 96.751387,9.60643263 C112.805711,9.60643263 118.365952,26.1614469 117.884602,40.2441684 C116.571633,78.5781377 67.1859451,109.17397 60.6855664,128.493526 C54.8975431,116.791769 13.2800767,99.8778912 13.6883649,63.0148341 Z M102.485688,0.106209614 C88.0688149,0.106209614 71.0184825,10.7539375 60.6984597,28.4489356 C57.913504,22.0581499 47.9920994,15.0946863 36.1979411,15.0946863 C26.6944947,15.0946863 0.0182295188,26.9726512 0.0182295188,65.3087694 C0.0182295188,114.78471 50.0743695,124.94679 60.1934716,140.323141 C60.888636,141.381467 63.1288492,142.179778 63.9830312,139.652688 C72.0574687,115.823696 134.667398,88.9003094 134.667398,40.4074837 C134.667398,13.2122626 116.902561,0.106209614 102.485688,0.106209614 L102.485688,0.106209614 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.266191123 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Yugoslavia" transform="translate(10.591979, 10.044922)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Path-3"></g>
+            <g id="SFR_Yugoslavia" mask="url(#mask-2)">
+                <g transform="translate(64.342814, 70.070220) rotate(-7.000000) translate(-64.342814, -70.070220) translate(-50.657186, 12.570220)" id="Group">
+                    <g transform="translate(0.000000, 0.000000)">
+                        <rect id="Rectangle-path" fill="#003893" fill-rule="nonzero" x="-1.0658141e-13" y="2.62900812e-13" width="229.103706" height="114.551853"></rect>
+                        <rect id="Rectangle-path" fill="#FFFFFF" fill-rule="nonzero" x="9.9475983e-14" y="38.183951" width="229.103706" height="76.367902"></rect>
+                        <rect id="Rectangle-path" fill="#DE0000" fill-rule="nonzero" x="3.48165941e-13" y="76.367902" width="229.103706" height="38.183951"></rect>
+                        <polygon id="Shape" stroke="#FCD115" stroke-width="2" fill="#DE0000" fill-rule="nonzero" points="114.551853 22.9103706 106.533223 47.3480992 80.9499761 47.3480992 101.951149 62.6216796 93.9325194 87.0594083 114.933692 72.1676674 135.934866 87.0594083 127.916236 62.6216796 148.917409 47.3480992 123.334162 47.3480992"></polygon>
+                    </g>
+                </g>
+            </g>
+            <g id="Fill-39">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

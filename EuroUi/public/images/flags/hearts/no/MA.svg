@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="145px" height="150px" viewBox="0 0 145 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Morocco</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="58.0292969 31.3095703 69.6699219 13.2558594 89.6923828 5.25195312 102.865234 8.30859375 112.673828 20.2431641 115.735352 57.78125 95.0429688 82.6933594 78.7802734 97.0732422 65.9765625 113.703125 58.640625 123.657227 41.6210938 114.650391 18.9746094 90.4833984 7.7578125 59.3056641 12.8212891 30.9804688 27.9492188 18.5410156 41.3300781 18.5615234 54.6025391 27.875 56.46875 35.3896484"></polygon>
+        <path d="M13.3778788,58.2473636 C13.6934697,29.9533485 28.4180682,21.097947 36.4368561,21.097947 C47.6353712,21.097947 52.2600682,29.6466894 53.0162955,33.4317955 C53.7715303,37.2149167 58.0101742,40.2398258 59.3717803,34.0361818 C60.7343788,27.8325379 73.909803,8.91593939 90.1002121,8.91593939 C104.929015,8.91593939 110.064811,24.2072121 109.620205,37.2149167 C108.407462,72.6226288 62.7916742,100.882902 56.7875076,118.727682 C51.4413182,107.919189 13.0007576,92.296447 13.3778788,58.2473636 Z M95.3967803,0.140924242 C82.0804318,0.140924242 66.3316515,9.97584848 56.7994167,26.3200833 C54.227053,20.4171439 45.0630076,13.9852424 34.1691667,13.9852424 C25.3911742,13.9852424 0.751265152,24.9564924 0.751265152,60.3661894 C0.751265152,106.065341 46.9863258,115.451689 56.3329773,129.654273 C56.9750758,130.631811 59.0442803,131.369182 59.8332576,129.035 C67.2913258,107.025015 125.121871,82.1568485 125.121871,37.3657652 C125.121871,12.2465152 108.713129,0.140924242 95.3967803,0.140924242 L95.3967803,0.140924242 Z" id="path-3"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.266191123 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Morocco" transform="translate(9.664062, 9.839844)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Path-4" stroke="#979797" xlink:href="#path-1"></use>
+            <g id="Flag_of_Morocco" mask="url(#mask-2)">
+                <g transform="translate(59.936568, 65.363924) rotate(-7.000000) translate(-59.936568, -65.363924) translate(-20.063432, 11.863924)">
+                    <rect id="Rectangle-path" stroke="none" fill="#C1272D" fill-rule="nonzero" x="2.95319325e-14" y="-2.48689958e-14" width="159.126942" height="106.084628"></rect>
+                    <polygon id="Shape" stroke="#006233" stroke-width="3.19420232" fill="none" points="79.5634551 39.6606169 71.7012758 63.8602992 92.2820136 48.9096246 66.8447215 48.9096246 87.4256344 63.8602992"></polygon>
+                </g>
+            </g>
+            <g id="Fill-39">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>
