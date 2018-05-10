@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PanelGroup, Panel, FormGroup, FormControl, Form, Button, ControlLabel } from 'react-bootstrap';
+import { PanelGroup, Panel, FormGroup, FormControl, Form, ControlLabel } from 'react-bootstrap';
 import myData from './data.json';
 
 class Vote extends Component {
@@ -16,9 +16,9 @@ class Vote extends Component {
         };
     }
 
-    getValidationState(id) {
-        const voteData = this.state.value.countries.find((country) => country.id === id).voteData;
-        var notCorrectPoints = voteData.find((vote) => Number.parseInt(vote.points, 10) < 0 || Number.parseInt(vote.points, 10) > 10);
+    getValidationState(countryId, categoryId) {
+        const votes = this.state.value.contestants.find((contestant) => contestant.contestantId === countryId).votes;
+        var notCorrectPoints = votes.find((vote) => vote.id === categoryId && (Number.parseInt(vote.points, 10) < 0 || Number.parseInt(vote.points, 10) > 10));
 
         if(notCorrectPoints !== undefined) {
             return 'error';
@@ -26,62 +26,82 @@ class Vote extends Component {
         return 'success';
     }
 
-    checkButtonStatus(id) {
-        if(this.getValidationState(id) === 'success') {
-            return false;
-        }
-        return true;
-    }
-
-    handleChange = (data) => {
+    handleChange = (changedVote) => {
         return (e) => {
+
+
+            let point = Number.parseFloat(e.target.value);
+            point = (point < 0 ? 0 : point > 12 ? 12 : point);
+             
+            console.log(point);
+            changedVote.points = point;
+            
+            this.sendVote(changedVote);
+            
+            //WAIT FOR DATA!!
             let value = this.state.value;
-            let countries = value.countries.map((country) => {
-                if(country.id === data.country) {
-                    let voteData = country.voteData.map((vote) => {
-                        if(vote.id === data.category) {
+            let contestants = value.contestants.map((contestant) => {
+                if(contestant.id === changedVote.country) {
+                    let voteData = contestant.voteData.map((vote) => {
+                        if(vote.id === changedVote.category) {
                             return Object.assign({}, vote, {points: e.target.value});
                         }
                         return vote;
                     });
-                    return Object.assign({}, country, {voteData: voteData});
+                    return Object.assign({}, contestant, {votes: voteData});
                 }  
-                return country;
+                return contestant;
             });
-            value.countries = countries; 
+            value.contestants = contestants; 
             this.setState({ value: value });
+            
+            
         }
     }
 
-    sendVote = (id) => {
-        let voteData = this.state.value.countries.find((country) => country.id === id).voteData;
+    sendVote = (vote) => {
+        //console.log(vote.country);
+        //console.log(vote.category);
+        //console.log(vote.points);
         //Send that shit!!
-        this.handleActiveKey(-1);
     }
 
     handleActiveKey(activeKey){
+        if(this.state.activeKey === activeKey){
+            activeKey = -1;
+        }
         this.setState({activeKey})
     }
 
+    averageScore = (votes) => {
+        let total = Object.values(votes).reduce((total, current) => total + current.value, 0);
+        console.log(total);
+        return (total.points / Object.keys(votes).length);
+    }
+
     render() {
-        var countryPanels = [].concat(this.state.value.countries).sort((a,b) => a.startingPosition > b.startingPosition).map((country, i) => {
+        var countryPanels = [].concat(this.state.value.contestants).sort((a,b) => a.startingOrder > b.startingOrder).map((contestant, i) => {
             return  <Panel key={i} eventKey={i} >
+                        <div className="panelHeading" onClick={() => this.handleActiveKey(i)}>
                         <Panel.Heading>
-                            <Panel.Title toggle>{country.name} {country.artist} - {country.song}</Panel.Title>
+                            <div className="flag"><img src={"../images/flags/round/png/"+contestant.countryName.toLowerCase().replace(" ", "-")+".png"} alt="flag"/></div>
+                            <div className="contryArtistContainer">
+                                <div className="countryName">{contestant.countryName}</div>
+                                <div className="artistSong">{contestant.contestantName} - {contestant.entryName}</div>
+                            </div>
+                            <div className="averageScore">{this.averageScore(contestant.votes)}</div>
                         </Panel.Heading>
+                        </div>
                         <Panel.Body collapsible>
                             <Form>
-                                <FormGroup controlId="formInlineName" bsSize="small" validationState={this.getValidationState(country.id)}>
-                                    {[].concat(country.voteData).sort((a,b) => a.id > b.id).map((category, i) => {
-                                        return  <div key={i}>
-                                                    <ControlLabel>{category.name}</ControlLabel>
-                                                    <FormControl type="number" min="1" max="10" value={category.points} placeholder="" onChange={this.handleChange({ "country": country.id, "category": category.id })} />
-                                                </div>
-                                                
-                                                
+                                
+                                    {[].concat(contestant.votes).sort((a,b) => a.key > b.key).map((vote, i) => {
+                                        return  <FormGroup key={i} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, vote.key)}>
+                                                    <ControlLabel >{this.state.value.categories.find((cat) => cat.categoryId === vote.key).categoryName}</ControlLabel>
+                                                    <FormControl type="number" min="1" max="10" value={vote.value} placeholder="" onChange={this.handleChange({ "country": contestant.contestantId, "category": vote.key })} />
+                                                </FormGroup>  
                                     })}
-                                </FormGroup>
-                                <Button onClick={() => this.sendVote(country.id)} disabled={this.checkButtonStatus(country.id)}>Save</Button>
+                                
                             </Form>
                         </Panel.Body>
                     </Panel>

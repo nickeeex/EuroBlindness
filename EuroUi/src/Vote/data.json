@@ -1,94 +1,58 @@
 {
-    "countries": [
+    "categories": [
         {
-            "id": 1,
-            "name": "Germany",
-            "artist": "Michael Schulte",
-            "song": "You Let Me Walk Alone",
-            "youtube": "www.google.com",
-            "startingPosition": 3,
-            "voteData": [
-                {
-                    "id": 1,
-                    "name": "Show",
-                    "points": 0
-                },
-                {
-                    "id": 2,
-                    "name": "Song",
-                    "points": 0
-                },
-                {
-                    "id": 3,
-                    "name": "Overall",
-                    "points": 0
-                },
-                {
-                    "id": 4,
-                    "name": "Panisin",
-                    "points": 0
-                }
-            ]
+            "categoryId": 25,
+            "categoryName": "Song"
         },
         {
-            "id": 2,
-            "name": "France",
-            "artist": "Madame Monsieur",
-            "song": "Mercy",
-            "youtube": "www.google.com",
-            "startingPosition": 1,
-            "voteData": [
-                {
-                    "id": 1,
-                    "name": "Show",
-                    "points": 0
-                },
-                {
-                    "id": 2,
-                    "name": "Song",
-                    "points": 0
-                },
-                {
-                    "id": 3,
-                    "name": "Overall",
-                    "points": 0
-                },
-                {
-                    "id": 4,
-                    "name": "Panisin",
-                    "points": 0
-                }
-            ]
+            "categoryId": 26,
+            "categoryName": "Show"
         },
         {
-            "id": 3,
-            "name": "United Kingdom",
-            "artist": "SuRie",
-            "song": "Storm",
-            "youtube": "www.google.com",
-            "startingPosition": 2,
-            "voteData": [
-                {
-                    "id": 1,
-                    "name": "Show",
-                    "points": 0
-                },
-                {
-                    "id": 2,
-                    "name": "Song",
-                    "points": 0
-                },
-                {
-                    "id": 3,
-                    "name": "Overall",
-                    "points": 0
-                },
-                {
-                    "id": 4,
-                    "name": "Panisin",
-                    "points": 0
+            "categoryId": 27,
+            "categoryName": "Overall"
+        },
+        {
+            "categoryId": 28,
+            "categoryName": "Panisin"
+        }
+    ],
+    "contestants": [
+        {
+            "contestantId": 1,
+            "countryName": "Germany",
+            "contestantName": "Michael Schulte",
+            "entryName": "You Let Me Walk Alone",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 3,
+            "votes": {
+                    "27": 8,
+                    "26": 9
                 }
-            ]
+        },
+        {
+            "contestantId": 2,
+            "countryName": "Sverige",
+            "contestantName": "Svenne Banan",
+            "entryName": "Bög sång",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 1,
+            "votes": {
+                    "25": 4,
+                    "28": 9
+                }
+        },
+        {
+            "contestantId": 3,
+            "countryName": "Finalnd",
+            "contestantName": "Saara Aalto",
+            "entryName": "Rick ROll",
+            "youtubeUri": "www.google.com",
+            "startingOrder": 2,
+            "votes": {
+                    "25": 4,
+                    "27": 3
+                }
         }
     ]
 }
