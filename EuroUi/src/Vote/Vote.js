@@ -18,7 +18,7 @@ class Vote extends Component {
 
     getValidationState(countryId, categoryId) {
         const votes = this.state.value.contestants.find((contestant) => contestant.contestantId === countryId).votes;
-        var notCorrectPoints = votes.find((vote) => vote.id === categoryId && (Number.parseInt(vote.points, 10) < 0 || Number.parseInt(vote.points, 10) > 10));
+        var notCorrectPoints = Object.entries(votes).find((vote) => vote.key === categoryId && (Number.parseInt(vote.value, 10) < 0 || Number.parseInt(vote.value, 10) > 10));
 
         if(notCorrectPoints !== undefined) {
             return 'error';
@@ -29,9 +29,9 @@ class Vote extends Component {
     handleChange = (changedVote) => {
         return (e) => {
 
-
-            let point = Number.parseFloat(e.target.value);
-            point = (point < 0 ? 0 : point > 12 ? 12 : point);
+            console.log(e.target.value);
+            let point =e.target.value;
+            //point = (point < 0 ? 0 : point > 12 ? 12 : point);
              
             console.log(point);
             changedVote.points = point;
@@ -41,14 +41,8 @@ class Vote extends Component {
             //WAIT FOR DATA!!
             let value = this.state.value;
             let contestants = value.contestants.map((contestant) => {
-                if(contestant.id === changedVote.country) {
-                    let voteData = contestant.voteData.map((vote) => {
-                        if(vote.id === changedVote.category) {
-                            return Object.assign({}, vote, {points: e.target.value});
-                        }
-                        return vote;
-                    });
-                    return Object.assign({}, contestant, {votes: voteData});
+                if(contestant.contestantId === changedVote.country) {
+                    contestant.votes[changedVote.category] = point;
                 }  
                 return contestant;
             });
@@ -95,10 +89,10 @@ class Vote extends Component {
                         <Panel.Body collapsible>
                             <Form>
                                 
-                                    {[].concat(contestant.votes).sort((a,b) => a.key > b.key).map((vote, i) => {
-                                        return  <FormGroup key={i} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, vote.key)}>
-                                                    <ControlLabel >{this.state.value.categories.find((cat) => cat.categoryId === vote.key).categoryName}</ControlLabel>
-                                                    <FormControl type="number" min="1" max="10" value={vote.value} placeholder="" onChange={this.handleChange({ "country": contestant.contestantId, "category": vote.key })} />
+                                    {[].concat(this.state.value.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, i) => {
+                                        return  <FormGroup key={i} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
+                                                    <ControlLabel>{category.categoryName}</ControlLabel>
+                                                    <FormControl type="number" min="1" max="10" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({ "country": contestant.contestantId, "category": category.categoryId })} />
                                                 </FormGroup>  
                                     })}
                                 
