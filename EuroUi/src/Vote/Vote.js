@@ -34,13 +34,14 @@ class Vote extends Component {
         if(notCorrectPoints) {
             return 'error';
         }
-        return 'success';
+        return null;
     }
 
     handleChange = (voteData) => {
         return (e) => {
 
-            let point = e.target.value;
+            const parsedPoint = Number.parseFloat(e.target.value);
+            let point = parsedPoint < 0 ? 0 : parsedPoint > 12 ? 12 : parsedPoint;
 
             voteData.points = point;
 
@@ -53,25 +54,17 @@ class Vote extends Component {
             }, { headers }).then((result) => {
                 this.setPoint(voteData);
             }).catch((error) => {
-                this.setPoint(voteData);
+                console.log("MEGA ERROR - Should not come here ever");
             });
-            
-            //point = (point < 0 ? 0 : point > 12 ? 12 : point);
-            
-            
-            
-            
-            
+                        
         }
     }
 
     setPoint = (voteData) => {
         const stateCopy = Object.assign({}, this.state.roomData);
-        console.log(voteData);
         stateCopy.contestants[voteData.index].votes[voteData.categoryId] = voteData.points;
-
-        //WAIT FOR DATA!!
         this.setState({ roomData: stateCopy});
+        
     }
 
     handleActiveKey(activeKey){
@@ -82,13 +75,11 @@ class Vote extends Component {
     }
 
     averageScore = (votes) => {
-        let total = Object.values(votes).reduce((total, current) => total + current.value, 0);
-        console.log(total);
-        if(Object.keys(votes).length === 0) {
+        let total = Object.entries(votes).reduce((total, current) => {var x = (isNaN(Number.parseFloat(current[1])) ? 0 : Number.parseFloat(current[1])); return total + x;}, 0);
+        if(Object.keys(votes).length === 0 || isNaN(total)) {
             return 0;
         }
-        console.log("Keys length: " + Object.keys(votes));
-        return (total.points / this.state.roomData.categories.length);
+        return (total / this.state.roomData.categories.length);
     }
 
     render() {
@@ -100,28 +91,45 @@ class Vote extends Component {
                             <div className="flag"><img src={"../images/flags/round/png/"+contestant.countryName.toLowerCase().replace(" ", "-")+".png"} alt="flag"/></div>
                             <div className="contryArtistContainer">
                                 <div className="countryName">{contestant.countryName}</div>
-                                <div className="artistSong">{contestant.contestantName} - {contestant.entryName}</div>
                             </div>
                             <div className="averageScore">{this.averageScore(contestant.votes)}</div>
                         </Panel.Heading>
                         </div>
                         <Panel.Body collapsible>
-                            <Form>
-                                
+                            <div className="contestantPicture">
+                                <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
+                            </div>
+                            <div className="contestantInfo">
+                                <div className="name">{contestant.contestantName}</div>
+                                <div className="infoDivider">-</div>
+                                <div className="song">{contestant.entryName}</div>
+                            </div>
+                            <Form className="categoryForm">
                                     {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
-                                        return  <FormGroup key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
+                                        return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                     <ControlLabel>{category.categoryName}</ControlLabel>
-                                                    <FormControl type="number" min="0" max="12" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
+                                                    <FormControl name={"input" + category.categoryId + " - " + contestant.contestantId} 
+                                                    type="number" min="0" max="12" 
+                                                    value={contestant.votes[category.categoryId]} 
+                                                    placeholder=""
+
+                                                    onChange={(e) => this.setPoint({"index":i, "categoryId": category.categoryId, "points": e.target.value})}
+
+                                                    onBlur={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
                                                 </FormGroup>  
                                     })}
                                 
                             </Form>
+                            <div className="officialLink"><a target="_blank" href={contestant.officialPageUri} >Official Eurovision page</a></div>
+                            <div className="youtube">
+                            <a target="_blank" href={contestant.youTubeUri}>Watch on youtube</a>
+                            </div>
                         </Panel.Body>
                     </Panel>
         });
 
         return (
-            <PanelGroup accordion id="accordion-example" activeKey={this.state.activeKey} onSelect={this.handleActiveKey}>
+            <PanelGroup accordion id="accordion" activeKey={this.state.activeKey} onSelect={this.handleActiveKey}>
                 {countryPanels}
             </PanelGroup>
         );

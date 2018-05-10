@@ -29,7 +29,7 @@ class NavigationBar extends Component {
   render() {
     return (
       <div>
-        <Navbar collapseOnSelect>
+        <Navbar collapseOnSelect fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
               <a href="/">EuroBlindness</a>

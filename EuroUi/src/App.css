@@ -1,6 +1,12 @@
+body {
+  font-family: 'Rubik', sans-serif;
+}
+
 .btn-margin {
   margin: 7px 3px;
 }
+
+
 
 .logo {
   max-width: 300px;
@@ -63,17 +69,16 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    justify-content: center;
   }
 
   .panelHeading .countryName {
-    font-size: 10pt;
+    font-size: 15pt;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
   }
 
-  .panelHeading .artistSong {
-    display: block;
-    position: relative;
-    font-weight: 700;
-  }
+
 
   .panelHeading .averageScore {
     font-size: 25px;
@@ -83,3 +88,70 @@
     border-bottom: 1px solid #f0f0f0;
   }
 
+  .categoryForm {
+    display: flex;
+    justify-content: center;
+  }
+
+  .category {
+    padding: 10px;
+    margin-bottom: 0;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+  }
+  .category .control-label {
+    text-align: center;
+  }
+
+  .contestantPicture {
+    width: 100%;
+    display: block;
+  }
+
+  .contestantPicture img {
+    width: 100%;
+  }
+
+  .contestantInfo {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+  }
+
+  .contestantInfo .infoDivider {
+    margin: 0 15px;
+  }
+
+  .youtube {
+    text-align: center;
+    margin: 20px 0;
+  }
+  /*
+  .youtube {
+    position: relative;
+    width: 50%;
+    padding-bottom: 28.125%;
+    margin: 0 auto;
+  }
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+*/
+  #accordion {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border: 1px solid #f0f0f0;
+  }
+
+  .officialLink {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  label {
+    font-weight: normal;
+  }
