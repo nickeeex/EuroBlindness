@@ -25,59 +25,53 @@ class Vote extends Component {
             this.setState({roomData: result.data})
         });
     }
-    
-    getRoomData = () => {
-       
-    }
-
-    vote = () => {
-        const { getAccessToken } = this.props.auth;
-        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
-        axios.post(`${API_URL}/vote/`,{  
-            categoryId: 25,
-            contestantId: 1,
-            points: 5
-        }, { headers })
-    }
 
     getValidationState(countryId, categoryId) {
-        const votes = this.state.roomData.contenstants.find((contestant) => contestant.contestantId === countryId).votes;
-        var notCorrectPoints = Object.entries(votes).find((vote) => vote.key === categoryId && (Number.parseInt(vote.value, 10) < 0 || Number.parseInt(vote.value, 10) > 12));
+        const votes = this.state.roomData.contestants.find((contestant) => contestant.contestantId === countryId).votes;
+        
+        var notCorrectPoints = Number.parseInt(votes[categoryId], 10) < 0 || Number.parseInt(votes[categoryId], 10) > 12;
 
-        if(notCorrectPoints !== undefined) {
+        if(notCorrectPoints) {
             return 'error';
         }
         return 'success';
     }
 
-    handleChange = (changedVote) => {
+    handleChange = (voteData) => {
         return (e) => {
 
-            console.log(e.target.value);
-            let point =e.target.value;
+            let point = e.target.value;
+
+            voteData.points = point;
+
+            const { getAccessToken } = this.props.auth;
+            const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
+            axios.post(`${API_URL}/vote/`,{  
+                categoryId: voteData.categoryId,
+                contestantId: voteData.contestantId,
+                points: voteData.points
+            }, { headers }).then((result) => {
+                this.setPoint(voteData);
+            }).catch((error) => {
+                this.setPoint(voteData);
+            });
+            
             //point = (point < 0 ? 0 : point > 12 ? 12 : point);
             
-            console.log(point);
-            changedVote.points = point;
             
-            this.sendVote(changedVote);
             
-            const stateCopy = Object.assign({}, this.state.roomData);
-
-            stateCopy.contenstants[changedVote.index].votes[changedVote.category] = point;
-
-            //WAIT FOR DATA!!
-            this.setState({ roomData: stateCopy});
             
             
         }
     }
 
-    sendVote = (vote) => {
-        //console.log(vote.country);
-        //console.log(vote.category);
-        //console.log(vote.points);
-        //Send that shit!!
+    setPoint = (voteData) => {
+        const stateCopy = Object.assign({}, this.state.roomData);
+        console.log(voteData);
+        stateCopy.contestants[voteData.index].votes[voteData.categoryId] = voteData.points;
+
+        //WAIT FOR DATA!!
+        this.setState({ roomData: stateCopy});
     }
 
     handleActiveKey(activeKey){
@@ -90,12 +84,16 @@ class Vote extends Component {
     averageScore = (votes) => {
         let total = Object.values(votes).reduce((total, current) => total + current.value, 0);
         console.log(total);
-        return (total.points / Object.keys(votes).length);
+        if(Object.keys(votes).length === 0) {
+            return 0;
+        }
+        console.log("Keys length: " + Object.keys(votes));
+        return (total.points / this.state.roomData.categories.length);
     }
 
     render() {
         if(!this.state.roomData) return <Callback />; 
-        var countryPanels = this.state.roomData.contenstants.map((contestant, i) => {
+        var countryPanels = this.state.roomData.contestants.map((contestant, i) => {
             return  <Panel key={contestant.contestantName} eventKey={contestant.contestantName} >
                         <div className="panelHeading" onClick={() => this.handleActiveKey(contestant.contestantName)}>
                         <Panel.Heading>
@@ -113,7 +111,7 @@ class Vote extends Component {
                                     {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
                                         return  <FormGroup key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                     <ControlLabel>{category.categoryName}</ControlLabel>
-                                                    <FormControl type="number" min="0" max="12" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({"index": i, "country": contestant.contestantId, "category": category.categoryId })} />
+                                                    <FormControl type="number" min="0" max="12" value={contestant.votes[category.categoryId] || 0 } placeholder="" onChange={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
                                                 </FormGroup>  
                                     })}
                                 
