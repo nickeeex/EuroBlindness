@@ -35,12 +35,16 @@ class App extends Component {
           <Route path="/" render={(props) =>
             !auth.isAuthenticated() ?
               <Login auth={auth} {...props} /> :
-              <div>
               <NavigationBar auth={auth} {...props} />
-              <Vote auth={auth} {...props} />
-              </div>}
+            }
           />
 
+           <Route exact path="/" render={(props) =>
+            !auth.isAuthenticated() ?
+              null :
+              <Vote auth={auth} {...props} />
+              }
+          />
           <Route key="callback" path="/callback" render={(props) => {
             this.handleAuthentication(props);
             return <Callback {...props} />

@@ -3,6 +3,7 @@ import { PanelGroup, Panel, FormGroup, FormControl, Form, ControlLabel } from 'r
 import axios from 'axios';
 import { API_URL } from './../constants';
 import Callback from './../Callback/Callback';
+import NumericInput from 'react-numeric-input';
 
 class Vote extends Component {
   
@@ -39,11 +40,10 @@ class Vote extends Component {
 
     handleChange = (voteData) => {
         return (e) => {
-
-            const parsedPoint = Number.parseFloat(e.target.value);
-            let point = parsedPoint < 0 ? 0 : parsedPoint > 12 ? 12 : parsedPoint;
-
-            voteData.points = point;
+            if(e > 12 || e < 0) return;
+            e = e == null ? 0 : e;
+            if(this.state.roomData.contestants[voteData.index].votes[voteData.categoryId] == e) return;
+            voteData.points = e;
 
             const { getAccessToken } = this.props.auth;
             const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
@@ -97,24 +97,19 @@ class Vote extends Component {
                         </div>
                         {
                             this.state.activeKey == contestant.contestantName ? (
-                                <Panel.Body style={{height: 620}} collapsible>
+                                <Panel.Body style={{height: 590}} collapsible>
                                     <div className="contestantPicture">
                                         <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
                                     </div>
                                     <div className="contestantInfo">
                                         <div className="name">{contestant.contestantName}</div>
-                                        <div className="infoDivider">-</div>
                                         <div className="song">{contestant.entryName}</div>
                                     </div>
                                     <Form className="categoryForm">
                                             {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
                                                 return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                             <ControlLabel>{category.categoryName}</ControlLabel>
-                                                            <FormControl name={"input" + category.categoryId + " - " + contestant.contestantId} 
-                                                            type="number" min="0" max="12" 
-                                                            defaultValue={contestant.votes[category.categoryId]} 
-                                                            placeholder=""
-                                                            onBlur={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
+                                                            <NumericInput className="form-control" min={0} max={12} step={1} value={contestant.votes[category.categoryId] || 0} onChange={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })}/>
                                                         </FormGroup>  
                                             })}
                                         
@@ -123,11 +118,11 @@ class Vote extends Component {
                                         <a target="_blank" href={contestant.officialPageUri} >Official Eurovision page</a>
                                     </div>
                                     <div className="youtube">
-                                        <iframe width="300" height="169" src="https://www.youtube.com/embed/1NK_027e0u4?rel=0" frameBorder="0" allowFullScreen></iframe>
+                                        {/*<iframe width="300" height="169" src={"https://www.youtube.com/embed/"+contestant.youTubeUri+"?rel=0"} frameBorder="0" allowFullScreen></iframe>*/}
                                     </div>
                                 </Panel.Body>
                             ) : (
-                                <Panel.Body style={{height: 620}} collapsible>
+                                <Panel.Body style={{height: 590}} collapsible>
                                 </Panel.Body>
                             )
                         }
