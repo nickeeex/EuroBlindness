@@ -95,36 +95,43 @@ class Vote extends Component {
                             <div className="averageScore">{this.averageScore(contestant.votes)}</div>
                         </Panel.Heading>
                         </div>
-                        <Panel.Body collapsible>
-                            <div className="contestantPicture">
-                                <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
-                            </div>
-                            <div className="contestantInfo">
-                                <div className="name">{contestant.contestantName}</div>
-                                <div className="infoDivider">-</div>
-                                <div className="song">{contestant.entryName}</div>
-                            </div>
-                            <Form className="categoryForm">
-                                    {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
-                                        return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
-                                                    <ControlLabel>{category.categoryName}</ControlLabel>
-                                                    <FormControl name={"input" + category.categoryId + " - " + contestant.contestantId} 
-                                                    type="number" min="0" max="12" 
-                                                    value={contestant.votes[category.categoryId]} 
-                                                    placeholder=""
-
-                                                    onChange={(e) => this.setPoint({"index":i, "categoryId": category.categoryId, "points": e.target.value})}
-
-                                                    onBlur={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
-                                                </FormGroup>  
-                                    })}
-                                
-                            </Form>
-                            <div className="officialLink"><a target="_blank" href={contestant.officialPageUri} >Official Eurovision page</a></div>
-                            <div className="youtube">
-                            <a target="_blank" href={contestant.youTubeUri}>Watch on youtube</a>
-                            </div>
-                        </Panel.Body>
+                        {
+                            this.state.activeKey == contestant.contestantName ? (
+                                <Panel.Body style={{height: 620}} collapsible>
+                                    <div className="contestantPicture">
+                                        <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
+                                    </div>
+                                    <div className="contestantInfo">
+                                        <div className="name">{contestant.contestantName}</div>
+                                        <div className="infoDivider">-</div>
+                                        <div className="song">{contestant.entryName}</div>
+                                    </div>
+                                    <Form className="categoryForm">
+                                            {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
+                                                return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
+                                                            <ControlLabel>{category.categoryName}</ControlLabel>
+                                                            <FormControl name={"input" + category.categoryId + " - " + contestant.contestantId} 
+                                                            type="number" min="0" max="12" 
+                                                            defaultValue={contestant.votes[category.categoryId]} 
+                                                            placeholder=""
+                                                            onBlur={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
+                                                        </FormGroup>  
+                                            })}
+                                        
+                                    </Form>
+                                    <div className="officialLink">
+                                        <a target="_blank" href={contestant.officialPageUri} >Official Eurovision page</a>
+                                    </div>
+                                    <div className="youtube">
+                                        <iframe width="300" height="169" src="https://www.youtube.com/embed/1NK_027e0u4?rel=0" frameBorder="0" allowFullScreen></iframe>
+                                    </div>
+                                </Panel.Body>
+                            ) : (
+                                <Panel.Body style={{height: 620}} collapsible>
+                                </Panel.Body>
+                            )
+                        }
+                        
                     </Panel>
         });
 
