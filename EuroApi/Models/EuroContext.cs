@@ -34,6 +34,7 @@ namespace WebAPIApplication.Models
         public DbSet<Vote> Votes { get; set; }
     }
 
+
     public static class DbInitializer
     {
         public static void Initialize(EuroContext context)
@@ -64,7 +65,7 @@ namespace WebAPIApplication.Models
                 context.Database.CloseConnection();
             }
 
-            if (context.Contestants.Count() != 10)
+            if (context.Contestants.Count() != 26)
             {
                 var contestants = context.Contestants.AsNoTracking();
                 context.Contestants.RemoveRange(contestants);

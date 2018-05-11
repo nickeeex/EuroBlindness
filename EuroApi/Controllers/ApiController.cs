@@ -75,9 +75,9 @@ namespace WebAPIApplication.Controllers
                 x.CategoryId,
                 x.CategoryName
             });
+            var votes = _context.Votes.Where(v => v.UserId == dbUser.UserId).ToList();
 
-            var result = _context.Contestants
-                .Include(r => r.Votes).OrderBy(x=>x.StartingOrder).Select(x => new
+            var result = _context.Contestants.OrderBy(x=>x.StartingOrder).Select(x => new
                 {
                     x.ContestantId,
                     x.ContestantName,
@@ -86,7 +86,7 @@ namespace WebAPIApplication.Controllers
                     x.StartingOrder,
                     x.YouTubeUri,
                     x.OfficialPageUri,
-                    Votes = x.Votes.Where(v => v.UserId == dbUser.UserId).Select(v => new
+                    Votes = votes.Where(c=>c.ContestantId == x.ContestantId).Select(v => new
                     {
                         v.Points,
                         v.CategoryId
