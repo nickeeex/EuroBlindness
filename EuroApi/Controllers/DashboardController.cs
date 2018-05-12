@@ -42,7 +42,7 @@ namespace WebAPIApplication.Controllers
             var top = votesPerContestant.Select(key => new
             {
                  Points = key.Sum(f => f.Points),
-                 Contestant = contestants[key.Key]
+                 ContestantId = key.Key
             }).OrderByDescending(f=>f.Points).Take(7);
 
             var votesPerCategory = votes.GroupBy(v => v.CategoryId);
@@ -51,7 +51,7 @@ namespace WebAPIApplication.Controllers
                Votes = v.GroupBy(f => f.ContestantId).Select(r => new
                 {
                    Points = r.Sum(e=>e.Points),
-                   Contestant = contestants[r.Key] 
+                   ContestantId = r.Key
                 }).OrderByDescending(r=>r.Points).Take(3)
             });
 
