@@ -107,7 +107,7 @@ class Vote extends Component {
                                             {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
                                                 return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                             <ControlLabel>{category.categoryName}</ControlLabel>
-                                                            <NumericInput className="form-control" min={0} max={12} step={1} value={contestant.votes[category.categoryId] || 0} onChange={(e) => this.handleChange({points: e, "index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
+                                                            <NumericInput className="form-control" min={0} max={12} step={1} value={contestant.votes[category.categoryId] || undefined} onChange={(e) => this.handleChange({points: e, "index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
                                                         </FormGroup>  
                                             })}
                                         
