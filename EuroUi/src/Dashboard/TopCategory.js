@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Cell} from 'recharts';
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Cell, LabelList} from 'recharts';
 import ContestantFlag from './ContestantFlag';
 
 class TopCategory extends Component {
@@ -30,66 +30,78 @@ class TopCategory extends Component {
                 <div className="dashboard-top-label">TOP CATEGORIES</div>
                 <Row className="category-row">
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
+                        {!this.props.dashboard.topPerCategory["1"] ? null :
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart className="categoryBar" margin={{left: 12}} layout="vertical" data={this.props.dashboard.topPerCategory["1"].votes}>
                                 <XAxis type="number" />
                                 <YAxis type="category" tick={(props) => <ContestantFlag {...props} />} dataKey={this.getContestants} label={{ value: this.props.dashboard.categories["1"], angle: -90, position: 'left' }}/>
                                 <Bar type="monotone" dataKey="points" barSize={30}>
                                     {
-                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                                        ))
+                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => ([
+                                            <Cell key={`cell-${index}`} fill={colors[index]}/>,
+                                            <LabelList key={`label-${index}`} dataKey="points" position="insideRight" fill="black" fontSize="15" />
+                                        ]))
                                     }
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
+                        }
                     </Col>
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
+                        {!this.props.dashboard.topPerCategory["2"] ? null :
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart className="categoryBar" margin={{left: 12}} layout="vertical" data={this.props.dashboard.topPerCategory["2"].votes}>
                                 <XAxis type="number" />
                                 <YAxis type="category" tick={(props) => <ContestantFlag {...props} />} dataKey={this.getContestants} label={{ value: this.props.dashboard.categories["2"], angle: -90, position: 'left' }} />
                                 <Bar type="monotone" dataKey="points" barSize={30}>
                                     {
-                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                                        ))
+                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => ([
+                                            <Cell key={`cell-${index}`} fill={colors[index]}/>,
+                                            <LabelList key={`label-${index}`} dataKey="points" position="insideRight" fill="black" fontSize="15" />
+                                        ]))
                                     }
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
+                        }
                     </Col>
                 </Row>
                 <Row className="category-row">
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
+                        {!this.props.dashboard.topPerCategory["3"] ? null :
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart className="categoryBar" margin={{left: 12}} layout="vertical" data={this.props.dashboard.topPerCategory["3"].votes}>
                                 <XAxis type="number" />
                                 <YAxis type="category" tick={(props) => <ContestantFlag {...props} />} dataKey={this.getContestants} label={{ value: this.props.dashboard.categories["3"], angle: -90, position: 'left' }} />
                                 <Bar type="monotone" dataKey="points" barSize={30}>
                                     {
-                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                                        ))
+                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => ([
+                                            <Cell key={`cell-${index}`} fill={colors[index]}/>,
+                                            <LabelList key={`label-${index}`} dataKey="points" position="insideRight" fill="black" fontSize="15" />
+                                        ]))
                                     }
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
+                        }
                     </Col>
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
+                        {!this.props.dashboard.topPerCategory["4"] ? null :
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart className="categoryBar" margin={{left: 12}} layout="vertical" data={this.props.dashboard.topPerCategory["4"].votes}>
                                 <XAxis type="number" />
                                 <YAxis type="category" tick={(props) => <ContestantFlag {...props } />} dataKey={this.getContestants} label={{ value: this.props.dashboard.categories["4"], angle: -90, position: 'left' }} />
                                 <Bar type="monotone" dataKey="points" barSize={30}>
                                     {
-                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                                        ))
+                                        this.props.dashboard.topPerCategory["1"].votes.map((entry, index) => ([
+                                            <Cell key={`cell-${index}`} fill={colors[index]}/>,
+                                            <LabelList key={`label-${index}`} dataKey="points" position="insideRight" fill="black" fontSize="15" />
+                                        ]))
                                     }
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
+                        }
                     </Col>
                 </Row>
             </Grid>

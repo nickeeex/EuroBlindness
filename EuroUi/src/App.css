@@ -95,7 +95,7 @@ body {
   }
 
   .category {
-    padding: 10px;
+    padding: 3px;
     margin-bottom: 0;
     width: 25%;
     display: flex;
@@ -173,6 +173,8 @@ body {
 
   .dashboard-top-label {
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
   }
 
   .dashboard-grid {

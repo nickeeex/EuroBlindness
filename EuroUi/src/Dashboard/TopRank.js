@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Cell} from 'recharts';
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Cell, LabelList} from 'recharts';
 import ContestantFlag from './ContestantFlag';
 class TopRank extends Component {
   
@@ -26,6 +26,16 @@ class TopRank extends Component {
             "#FF0000"
         ]
 
+        const textColors = [
+            "#FFFFFF",
+            "#FFFFFF",
+            "#FFFFFF",
+            "black",
+            "#000000",
+            "#FFFFFF",
+            "#FFFFFF"
+        ]
+
         return (
             <Grid className="data-panel category-panel">
                 <div className="dashboard-top-label">TOP RANK</div>
@@ -35,11 +45,13 @@ class TopRank extends Component {
                             <BarChart className="categoryBar" layout="vertical" data={this.props.dashboard.top}>
                                 <XAxis type="number" />
                                 <YAxis type="category" tick={(props) => <ContestantFlag {...props} />} dataKey={this.getContestants} />
-                                <Bar type="monotone" dataKey="points" barSize={30}>
+                                <Bar type="monotone" dataKey="points" barSize={30} >
                                     {
-                                        this.props.dashboard.top.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                                        ))
+                                        this.props.dashboard.top.map((entry, index) => ([
+                                            <Cell key={`cell-${index}`} fill={colors[index]}/>,
+                                            <LabelList key={`label-${index}`} dataKey="points" position="insideRight" fill="#aaaaaa" fontSize="15" />
+                                        
+                                        ]))
                                     }
                                 </Bar>
                             </BarChart>

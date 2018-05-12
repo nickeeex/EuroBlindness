@@ -17,9 +17,14 @@ class ContestantFact extends Component {
                 <Row className="top-rank-row">
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
                         <div className="contestant-fact-picture">
-                            <img src={"./images/contestants/"+this.props.contestant.countryName.toLowerCase().replace(" ", "-")+".jpg"} alt={this.props.contestant.countryName} />
+                            {
+                                !this.props.contestant.countryName ? null :
+                                <img src={"./images/contestants/"+this.props.contestant.countryName.toLowerCase().replace(" ", "-")+".jpg"} alt={this.props.contestant.countryName} />
+                            }
+                            
                         </div>
                     </Col>
+                    {!this.props.contestant.categories ? null :
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
                         <div className="contestant-fact-info">
                             <div className="info-container">
@@ -66,6 +71,7 @@ class ContestantFact extends Component {
                             </div>
                         </div>
                     </Col>
+                    }
                 </Row>
             </Grid>
         )
