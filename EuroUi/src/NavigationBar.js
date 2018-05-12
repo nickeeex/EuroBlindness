@@ -5,10 +5,6 @@ import './App.css';
 
 class NavigationBar extends Component {
  
-  constructor(props, context) {
-    super(props, context);
-  }
-
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }

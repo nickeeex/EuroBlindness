@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route, Router, Redirect } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 import Login from './Login/Login';
 import Callback from './Callback/Callback';

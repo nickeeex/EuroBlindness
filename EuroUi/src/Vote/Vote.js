@@ -39,11 +39,11 @@ class Vote extends Component {
     }
 
     handleChange = (voteData) => {
-        voteData.points = voteData.points == null ? 0 : voteData.points;
+        voteData.points = voteData.points === null ? 0 : voteData.points;
         voteData.points = voteData.points > 12 ? 12 : voteData.points;
         voteData.points = voteData.points < 0 ? 0 : voteData.points;
 
-        if(this.state.roomData.contestants[voteData.index].votes[voteData.categoryId] == voteData.points) return;
+        if(this.state.roomData.contestants[voteData.index].votes[voteData.categoryId] === voteData.points) return;
 
         const { getAccessToken } = this.props.auth;
         const headers = { 'Authorization': `Bearer ${getAccessToken()}` }

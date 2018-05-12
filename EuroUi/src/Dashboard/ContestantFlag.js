@@ -3,11 +3,6 @@ import React, { Component } from 'react';
 
 
 class ContestantFlag extends Component {
-
-    constructor(props, context) {
-        super(props, context);
-    }
-
     render() {
         return (
             <g transform={`translate(${this.props.x-25},${this.props.y-12})`}>
