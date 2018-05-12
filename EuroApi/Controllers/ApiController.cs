@@ -112,12 +112,20 @@ namespace WebAPIApplication.Controllers
             }
 
             var dbUser = _context.Users.Include(user => user.Room).SingleOrDefault(x => x.UserSub == GetNameIdentifier());
-            var vote = await _context.Votes.FirstOrDefaultAsync(x => x.CategoryId == voteData.CategoryId && x.ContestantId == voteData.ContestantId && x.UserId == dbUser.UserId) ?? new Vote
+            var vote = await _context.Votes.FirstOrDefaultAsync(x => x.CategoryId == voteData.CategoryId && x.ContestantId == voteData.ContestantId && x.UserId == dbUser.UserId);
+            if (vote == null)
             {
-                CategoryId = voteData.CategoryId,
-                ContestantId = voteData.ContestantId,
-                UserId = dbUser.UserId
-            };
+                var newVote = new Vote
+                {
+                    CategoryId = voteData.CategoryId,
+                    ContestantId = voteData.ContestantId,
+                    UserId = dbUser.UserId,
+                    Points = voteData.Points
+                };
+                _context.Add(newVote);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }           
 
             vote.Points = voteData.Points;
 

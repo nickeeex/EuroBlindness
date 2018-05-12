@@ -22,6 +22,10 @@ namespace WebAPIApplication.Models
                 .HasAlternateKey(c => c.RoomCode)
                 .HasName("AlternateKey_RoomCode");
 
+            modelBuilder.Entity<Vote>()
+                .HasIndex(c => new { c.CategoryId, c.ContestantId, c.UserId}).IsUnique(true)
+                .HasName("AlternateKey_RoomCode");
+
             modelBuilder
                 .Entity<Contestant>()
                 .HasQueryFilter(p => p.IsActive);
@@ -46,21 +50,32 @@ namespace WebAPIApplication.Models
             {
                 context.Database.OpenConnection();
                 context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Rooms ON");
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Categories ON");
-
+    
                 var room = new Room()
                 {
                     RoomId = 123,
                     Name = "EuroBlindness",
                     RoomCode = "Morski3Noob",
-                    Categories = new List<Category> {
-                    new Category { CategoryName = "Show", CategoryId = 1},
-                    new Category { CategoryName = "Song", CategoryId = 2 },
-                    new Category { CategoryName = "Overall", CategoryId = 3 },
-                    new Category { CategoryName = "Panisin", CategoryId = 4 }
-                }
                 };
                 context.Add(room);
+                context.SaveChanges();
+
+                context.Database.CloseConnection();
+            }
+
+            if (!context.Categories.Any())
+            {
+                context.Database.OpenConnection();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Categories ON");
+
+                var categories = new List<Category>
+                {
+                    new Category {CategoryName = "Show", CategoryId = 1, RoomId = 123},
+                    new Category {CategoryName = "Song", CategoryId = 2, RoomId = 123},
+                    new Category {CategoryName = "Overall", CategoryId = 3, RoomId = 123},
+                    new Category {CategoryName = "Panisin", CategoryId = 4, RoomId = 123}
+                };
+                context.AddRange(categories);
                 context.SaveChanges();
 
                 context.Database.CloseConnection();

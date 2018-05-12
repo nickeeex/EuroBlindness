@@ -118,13 +118,15 @@ namespace WebAPIApplication.Migrations
 
                     b.HasKey("VoteId");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("ContestantId");
 
                     b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("CategoryId", "ContestantId", "UserId")
+                        .IsUnique()
+                        .HasName("AlternateKey_RoomCode");
 
                     b.ToTable("Votes");
                 });
