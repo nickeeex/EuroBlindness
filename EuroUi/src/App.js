@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { Route, Router, Redirect, withRouter } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 import Login from './Login/Login';
-import RoomChoise from './Login/RoomChoise';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import Vote from './Vote/Vote';
-import Users from './Users/Users';
 import Dashboard from './Dashboard/Dashboard';
 import history from './history';
 import axios from 'axios';
 import { API_URL } from './constants';
 
 const auth = new Auth();
-
-const unlisten = history.listen((location, action) => {
-  console.log(action, location.pathname, location.state);
-});
 
 class App extends Component {
 
@@ -26,10 +20,6 @@ class App extends Component {
     }
   }
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     return (
       <Router history={history}>
@@ -37,6 +27,7 @@ class App extends Component {
           <Route path="/" render={(props) =>
             !auth.isAuthenticated() ?
               <Login auth={auth} {...props} /> :
+              props.location.pathname === "/dashboard" ? null :
               <NavigationBar auth={auth} {...props} />
           }
           />
@@ -53,6 +44,7 @@ class App extends Component {
           }} />
 
           <Route key="vote" path="/vote" render={(props) => {
+            console.log(JSON.stringify(props));
             return <Vote auth={auth} {...props} />
           }} />
 

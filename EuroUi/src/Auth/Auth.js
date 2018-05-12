@@ -34,7 +34,7 @@ export default class Auth {
         this.setSession(authResult);
       } else if (err) {
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
+        console.log(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
@@ -110,12 +110,12 @@ export default class Auth {
     this.auth0.checkSession({},
       (err, result) => {
         if (err) {
-          alert(
+          console.log(
             `Could not get a new token (${err.error}: ${err.error_description}).`
           );
         } else {
           this.setSession(result);
-          alert(`Successfully renewed auth!`);
+          console.log(`Successfully renewed auth!`);
         }
       }
     );

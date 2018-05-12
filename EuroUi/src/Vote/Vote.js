@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PanelGroup, Panel, FormGroup, FormControl, Form, ControlLabel } from 'react-bootstrap';
+import { PanelGroup, Panel, FormGroup, Form, ControlLabel } from 'react-bootstrap';
 import axios from 'axios';
 import { API_URL } from './../constants';
 import Callback from './../Callback/Callback';
@@ -94,7 +94,7 @@ class Vote extends Component {
                         </Panel.Heading>
                         </div>
                         {
-                            this.state.activeKey == contestant.contestantName ? (
+                            this.state.activeKey === contestant.contestantName ? (
                                 <Panel.Body style={{height: 480}} collapsible>
                                     <div className="contestantPicture">
                                         <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
