@@ -9,6 +9,8 @@ import Vote from './Vote/Vote';
 import Users from './Users/Users';
 import Dashboard from './Dashboard/Dashboard';
 import history from './history';
+import axios from 'axios';
+import { API_URL } from './constants';
 
 const auth = new Auth();
 
@@ -36,14 +38,14 @@ class App extends Component {
             !auth.isAuthenticated() ?
               <Login auth={auth} {...props} /> :
               <NavigationBar auth={auth} {...props} />
-            }
+          }
           />
 
-           <Route exact path="/" render={(props) =>
+          <Route exact path="/" render={(props) =>
             !auth.isAuthenticated() ?
               null :
               <Vote auth={auth} {...props} />
-              }
+          }
           />
           <Route key="callback" path="/callback" render={(props) => {
             this.handleAuthentication(props);
@@ -54,6 +56,14 @@ class App extends Component {
             return <Vote auth={auth} {...props} />
           }} />
 
+          <Route key="reset" path="/reset" render={(props) => {
+              const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}` }
+              axios.post(`${API_URL}/reset/`,{}, { headers });
+              return <Redirect to={{
+                pathname: '/vote',
+                state: { from: props.location }
+              }} />
+          }} />
           {/*
           <Route key="selectroom" path="/selectroom" render={(props) =>
             auth.getRoomId() != null ?

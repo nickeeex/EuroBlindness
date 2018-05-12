@@ -39,25 +39,23 @@ class Vote extends Component {
     }
 
     handleChange = (voteData) => {
-        return (e) => {
-            if(e > 12 || e < 0) return;
-            e = e == null ? 0 : e;
-            if(this.state.roomData.contestants[voteData.index].votes[voteData.categoryId] == e) return;
-            voteData.points = e;
+        voteData.points = voteData.points == null ? 0 : voteData.points;
+        voteData.points = voteData.points > 12 ? 12 : voteData.points;
+        voteData.points = voteData.points < 0 ? 0 : voteData.points;
 
-            const { getAccessToken } = this.props.auth;
-            const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
-            axios.post(`${API_URL}/vote/`,{  
-                categoryId: voteData.categoryId,
-                contestantId: voteData.contestantId,
-                points: voteData.points
-            }, { headers }).then((result) => {
-                this.setPoint(voteData);
-            }).catch((error) => {
-                console.log("MEGA ERROR - Should not come here ever");
-            });
-                        
-        }
+        if(this.state.roomData.contestants[voteData.index].votes[voteData.categoryId] == voteData.points) return;
+
+        const { getAccessToken } = this.props.auth;
+        const headers = { 'Authorization': `Bearer ${getAccessToken()}` }
+        axios.post(`${API_URL}/vote/`,{  
+            categoryId: voteData.categoryId,
+            contestantId: voteData.contestantId,
+            points: voteData.points
+        }, { headers }).then((result) => {
+            this.setPoint(voteData);
+        }).catch((error) => {
+            console.log("MEGA ERROR - Should not come here ever");
+        });
     }
 
     setPoint = (voteData) => {
@@ -97,7 +95,7 @@ class Vote extends Component {
                         </div>
                         {
                             this.state.activeKey == contestant.contestantName ? (
-                                <Panel.Body style={{height: 590}} collapsible>
+                                <Panel.Body style={{height: 480}} collapsible>
                                     <div className="contestantPicture">
                                         <img src={"../images/contestants/" + contestant.countryName.toLowerCase().replace(" ", "-") + ".jpg"} alt={contestant.countryId} />
                                     </div>
@@ -109,7 +107,7 @@ class Vote extends Component {
                                             {[].concat(this.state.roomData.categories).sort((a,b) => a.categoryId > b.categoryId).map((category, j) => {
                                                 return  <FormGroup className="category" key={category.categoryName} controlId="formInlineName" bsSize="small" validationState={this.getValidationState(contestant.contestantId, category.categoryId)}>
                                                             <ControlLabel>{category.categoryName}</ControlLabel>
-                                                            <NumericInput className="form-control" min={0} max={12} step={1} value={contestant.votes[category.categoryId] || 0} onChange={this.handleChange({"index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })}/>
+                                                            <NumericInput className="form-control" min={0} max={12} step={1} value={contestant.votes[category.categoryId] || 0} onChange={(e) => this.handleChange({points: e, "index": i, "contestantId": contestant.contestantId, "categoryId": category.categoryId })} />
                                                         </FormGroup>  
                                             })}
                                         
@@ -118,11 +116,11 @@ class Vote extends Component {
                                         <a target="_blank" href={contestant.officialPageUri} >Official Eurovision page</a>
                                     </div>
                                     <div className="youtube">
-                                        {/*<iframe width="300" height="169" src={"https://www.youtube.com/embed/"+contestant.youTubeUri+"?rel=0"} frameBorder="0" allowFullScreen></iframe>*/}
+                                        <a target="_blank" href={"https://www.youtube.com/watch?v="+contestant.youTubeUri+"?rel=0"} >Youtube</a>
                                     </div>
                                 </Panel.Body>
                             ) : (
-                                <Panel.Body style={{height: 590}} collapsible>
+                                <Panel.Body style={{height: 480}} collapsible>
                                 </Panel.Body>
                             )
                         }

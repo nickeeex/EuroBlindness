@@ -2,6 +2,8 @@ import history from '../history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+import { API_URL } from './../constants';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -30,7 +32,6 @@ export default class Auth {
     return this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/');
       } else if (err) {
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
@@ -45,10 +46,13 @@ export default class Auth {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
 
-    // Schedule renewal
-    this.scheduleRenewal();
-    // navigate to the home route
-    history.replace('/');
+    const headers = { 'Authorization': `Bearer ${authResult.accessToken}` }
+    axios.post(`${API_URL}/register/`,{}, { headers }).then(() => {
+      // Schedule renewal
+      this.scheduleRenewal();
+      // navigate to the home route
+      history.replace('/');
+    })
   }
 
   getAccessToken() {
