@@ -11,8 +11,8 @@ using WebAPIApplication.Models;
 namespace WebAPIApplication.Migrations
 {
     [DbContext(typeof(EuroContext))]
-    [Migration("20180509184640_AddedOfficialPageToContestant")]
-    partial class AddedOfficialPageToContestant
+    [Migration("20180512021006_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,13 +119,15 @@ namespace WebAPIApplication.Migrations
 
                     b.HasKey("VoteId");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("ContestantId");
 
                     b.HasIndex("RoomId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("CategoryId", "ContestantId", "UserId")
+                        .IsUnique()
+                        .HasName("AlternateKey_RoomCode");
 
                     b.ToTable("Votes");
                 });

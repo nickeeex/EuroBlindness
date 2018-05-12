@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WebAPIApplication.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,7 @@ namespace WebAPIApplication.Migrations
                     CountryName = table.Column<string>(nullable: true),
                     EntryName = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
+                    OfficialPageUri = table.Column<string>(nullable: true),
                     StartingOrder = table.Column<int>(nullable: false),
                     YouTubeUri = table.Column<string>(nullable: true)
                 },
@@ -93,6 +94,7 @@ namespace WebAPIApplication.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<long>(nullable: false),
                     ContestantId = table.Column<long>(nullable: false),
+                    Points = table.Column<int>(nullable: false),
                     RoomId = table.Column<long>(nullable: true),
                     UserId = table.Column<long>(nullable: false)
                 },
@@ -136,11 +138,6 @@ namespace WebAPIApplication.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Votes_CategoryId",
-                table: "Votes",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Votes_ContestantId",
                 table: "Votes",
                 column: "ContestantId");
@@ -154,6 +151,12 @@ namespace WebAPIApplication.Migrations
                 name: "IX_Votes_UserId",
                 table: "Votes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "AlternateKey_RoomCode",
+                table: "Votes",
+                columns: new[] { "CategoryId", "ContestantId", "UserId" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
