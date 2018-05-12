@@ -231,4 +231,22 @@ body {
 
   .contestant-fact-info {
     height: 25%;
+
+  }
+
+  .contestant-fact-info > .info-container > .contestant-fact-text-label {
+    font-size: 12px;
+  }
+
+  .contestant-fact-info > .info-container > .contestant-fact-name-label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .info-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
   }

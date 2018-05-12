@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar} from 'recharts';
 
 class ContestantFact extends Component {
   
@@ -12,34 +11,60 @@ class ContestantFact extends Component {
     }
     
     render() {
-
-        const data = [
-            {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-            {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-            {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-            {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-            {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-            {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-            {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-            {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-            {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-            {name: 'Page E', uv: 1890, pv: 4800, amt: 2181}
-        ];
-
         return (
             <Grid className="data-panel category-panel">
-                <div className="dashboard-top-label">CONTESTANT FACT</div>
+                <div className="dashboard-top-label">CONTESTANT FACT - {this.props.contestant.countryName}</div>
                 <Row className="top-rank-row">
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
                         <div className="contestant-fact-picture">
-                        <img src="./images/contestants/finland.jpg" alt="asd" />
+                            <img src={"./images/contestants/"+this.props.contestant.countryName.toLowerCase().replace(" ", "-")+".jpg"} alt={this.props.contestant.countryName} />
                         </div>
                     </Col>
                     <Col xs={6} sm={6} md={6} lg={6} className="category-col">
-                        <div className="contestant-fact-info">A</div>
-                        <div className="contestant-fact-info">B</div>
-                        <div className="contestant-fact-info">C</div>
-                        <div className="contestant-fact-info">D</div>
+                        <div className="contestant-fact-info">
+                            <div className="info-container">
+                                <label className="contestant-fact-text-label">This guy likes the whole package</label>
+                                {
+                                    !this.props.contestant.categories.overall ? null :
+                                    this.props.contestant.categories.overall.split(",").map((user) => {
+                                        return <label className="contestant-fact-name-label" key={user}>{user}</label>
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className="contestant-fact-info">
+                        <div className="info-container">
+                            <label className="contestant-fact-text-label">This guy would sing karaoke to this song</label>
+                            {
+                                !this.props.contestant.categories.song ? null :
+                                this.props.contestant.categories.song.split(",").map((user) => {
+                                    return <label className="contestant-fact-name-label" key={user}>{user}</label>
+                                })
+                            }
+                            </div>
+                        </div>
+                        <div className="contestant-fact-info">
+                        <div className="info-container">
+                            <label className="contestant-fact-text-label">This guy would love to be part of the backup dance team</label>
+                            {
+                                !this.props.contestant.categories.show ? null :
+                                this.props.contestant.categories.show.split(",").map((user) => {
+                                    return <label className="contestant-fact-name-label" key={user}>{user}</label>
+                                })
+                            }
+                            </div>
+                        </div>
+                        <div className="contestant-fact-info">
+                            <div className="info-container">
+                                <label className="contestant-fact-text-label">This guy FUCKS!</label>
+                                {
+                                    !this.props.contestant.categories.panisin ? null :
+                                    this.props.contestant.categories.panisin.split(",").map((user) => {
+                                        return <label className="contestant-fact-name-label" key={user}>{user}</label>
+                                    })
+                                }
+                            </div>
+                        </div>
                     </Col>
                 </Row>
             </Grid>

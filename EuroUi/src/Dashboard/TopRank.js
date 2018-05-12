@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Cell} from 'recharts';
-
+import ContestantFlag from './ContestantFlag';
 class TopRank extends Component {
   
     constructor(props, context) {
@@ -10,19 +10,12 @@ class TopRank extends Component {
         value: ''
         };
     }
+
+    getContestants = (x) => {
+        return this.props.dashboard.contestants[x.contestantId];
+    }
     
     render() {
-
-        const data = [
-            {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-            {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-            {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-            {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-            {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-            {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-            {name: 'Page B', uv: 3000, pv: 1398, amt: 2210}
-        ];
-
         const colors = [
             "#9400D3",
             "#4B0082",
@@ -39,12 +32,12 @@ class TopRank extends Component {
                 <Row className="top-rank-row">
                     <Col xs={12} sm={12} md={12} lg={12} className="category-col">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart className="categoryBar" layout="vertical" data={data}>
+                            <BarChart className="categoryBar" layout="vertical" data={this.props.dashboard.top}>
                                 <XAxis type="number" />
-                                <YAxis type="category" dataKey="name" />
-                                <Bar type="monotone" dataKey="pv" barSize={30}>
+                                <YAxis type="category" tick={(props) => <ContestantFlag {...props} />} dataKey={this.getContestants} />
+                                <Bar type="monotone" dataKey="points" barSize={30}>
                                     {
-                                        data.map((entry, index) => (
+                                        this.props.dashboard.top.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={colors[index]}/>
                                         ))
                                     }

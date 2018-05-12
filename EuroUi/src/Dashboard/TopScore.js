@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { ResponsiveContainer, Radar, RadarChart, PolarGrid, Legend,
+import { ResponsiveContainer, Radar, RadarChart, PolarGrid, 
     PolarAngleAxis, PolarRadiusAxis} from 'recharts';
 
 class TopScore extends Component {
@@ -31,11 +31,11 @@ class TopScore extends Component {
                 <Row className="top-rank-row">
                     <Col xs={12} sm={12} md={12} lg={12} className="category-col">
                         <ResponsiveContainer width="100%" height="100%">
-                            <RadarChart data={data}>
+                            <RadarChart data={this.props.dashboard.topVoters}>
                                 <PolarGrid />
-                                <PolarAngleAxis dataKey="subject" />
+                                <PolarAngleAxis dataKey={(e) => this.props.dashboard.users[e.user]} />
                                 <PolarRadiusAxis/>
-                                <Radar name="Mike" dataKey="A" stroke="#003300" fill="#00ff00" fillOpacity={0.6}/>
+                                <Radar name="Mike" dataKey="points" stroke="#003300" fill="#00ff00" fillOpacity={0.6}/>
                             </RadarChart>
                         </ResponsiveContainer>
                     </Col>
