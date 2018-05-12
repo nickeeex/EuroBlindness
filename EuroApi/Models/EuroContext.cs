@@ -46,6 +46,7 @@ namespace WebAPIApplication.Models
             {
                 context.Database.OpenConnection();
                 context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Rooms ON");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT dbo.Categories ON");
 
                 var room = new Room()
                 {
@@ -53,10 +54,10 @@ namespace WebAPIApplication.Models
                     Name = "EuroBlindness",
                     RoomCode = "Morski3Noob",
                     Categories = new List<Category> {
-                    new Category { CategoryName = "Show" },
-                    new Category { CategoryName = "Song" },
-                    new Category { CategoryName = "Overall" },
-                    new Category { CategoryName = "Panisin" }
+                    new Category { CategoryName = "Show", CategoryId = 1},
+                    new Category { CategoryName = "Song", CategoryId = 2 },
+                    new Category { CategoryName = "Overall", CategoryId = 3 },
+                    new Category { CategoryName = "Panisin", CategoryId = 4 }
                 }
                 };
                 context.Add(room);

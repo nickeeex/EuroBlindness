@@ -15,10 +15,10 @@ namespace WebAPIApplication.Controllers
     public class DashboardController : Controller
     {
         private readonly EuroContext _context;
-        private readonly ILogger<ApiController> _logger;
+        private readonly ILogger<DashboardController> _logger;
         private readonly IConfiguration _configuration;
         const string RoomNameSpace = "https://euroblindness/roomId";
-        public DashboardController(EuroContext context, ILogger<ApiController> logger, IConfiguration configuration)
+        public DashboardController(EuroContext context, ILogger<DashboardController> logger, IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
@@ -42,7 +42,7 @@ namespace WebAPIApplication.Controllers
             var top = votesPerContestant.Select(key => new
             {
                  Points = key.Sum(f => f.Points),
-                 ContestantId = key.Key
+                 Contestant = contestants[key.Key]
             }).OrderByDescending(f=>f.Points).Take(7);
 
             var votesPerCategory = votes.GroupBy(v => v.CategoryId);
@@ -51,7 +51,7 @@ namespace WebAPIApplication.Controllers
                Votes = v.GroupBy(f => f.ContestantId).Select(r => new
                 {
                    Points = r.Sum(e=>e.Points),
-                   ContestantId = r.Key 
+                   Contestant = contestants[r.Key] 
                 }).OrderByDescending(r=>r.Points).Take(3)
             });
 
@@ -101,7 +101,7 @@ namespace WebAPIApplication.Controllers
             {
                 var maxPoints = votes.Max(x => x.Points);
                 var whereMax = votes.Where(x => x.Points == maxPoints).Select(x=>x.UserId);
-                var userNames = users.Where(x => whereMax.Contains(x.Key)).Select(x=>x.Value).Take(3);
+                var userNames = users.Where(x => whereMax.Contains(x.Key)).Select(x=>x.Value).Take(2);
                 returnDict.Add(categories[votes.Key], string.Join(",", userNames) );
             }
             return Ok(new

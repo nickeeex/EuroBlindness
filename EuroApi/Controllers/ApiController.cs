@@ -162,15 +162,14 @@ namespace WebAPIApplication.Controllers
             });
         }
 
-        [HttpGet]
-        [Route("private-scoped")]
-        [Authorize("admin")]
-        public IActionResult Scoped()
+        [HttpPost]
+        [Route("reset")]
+        [Authorize]
+        public IActionResult Reset()
         {
-            return Json(new
-            {
-                Message = "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
-            });
+           _context.Database.ExecuteSqlCommand("TRUNCATE TABLE [Votes]");
+           _context.SaveChanges();
+           return Ok();
         }
 
         /// <summary>

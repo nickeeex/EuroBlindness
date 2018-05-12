@@ -2,19 +2,11 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import './App.css';
-import axios from 'axios';
-import { API_URL } from './constants';
 
 class NavigationBar extends Component {
-
-  register = () => {
-    const headers = { 'Authorization': `Bearer ${this.props.auth.getAccessToken()}` }
-    axios.post(`${API_URL}/register/`,{}, { headers })
-  }
-
+ 
   constructor(props, context) {
     super(props, context);
-    this.register();
   }
 
   goTo(route) {
